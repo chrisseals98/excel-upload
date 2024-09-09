@@ -1,0 +1,24 @@
+﻿.center {
+    align-items: center;
+}
+
+.wrapper {
+    min-height: fit-content;
+    width: 80%;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+button {
+    width: fit-content;
+}

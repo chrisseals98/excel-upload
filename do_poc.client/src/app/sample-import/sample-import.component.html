@@ -1,0 +1,122 @@
+<mat-stepper [linear]="true">
+    <mat-step [completed]="isFileRead">
+        <ng-template matStepLabel>Upload Sample File</ng-template>
+        <div class="row">
+            <button mat-button matStepperNext [disabled]="!isFileRead">Next</button>
+        </div>
+        <br>
+        <div class="column">
+            <div class="column">
+                <label for="samplesInput">Upload a Samples file</label>
+                <input type="file" name="samplesInput" accept=".xlsx" (change)="readFile($event)">
+            </div>
+            <br>
+            @if (isFileRead) {
+                <div class="column">
+                    <mat-checkbox [formControl]="showTable" labelPosition="before">View Data</mat-checkbox>
+                    <div id="data"></div>
+                </div>
+            }
+        </div>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Map Columns</ng-template>
+        <div class="row">
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+        </div>
+        <br>
+        <p>Please map the columns to the appropiate data fields</p>
+        <form class="row spread" [formGroup]="columnMappings">
+            <div class="column left-aligned">
+                <p>Spreadsheet Information</p>
+                <mat-form-field>
+                    <mat-label>Rows to skip</mat-label>
+                    <input matInput type="text" name="station" formControlName="rowsToSkip"/>
+                </mat-form-field>
+            </div>
+            <div class="column left-aligned">
+                <p>Identification Data</p>
+                <mat-form-field>
+                    <mat-label>Station ID</mat-label>
+                    <input matInput type="text" name="station" formControlName="stationId"/>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Date</mat-label>
+                    <input matInput type="text" name="station" formControlName="date"/>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Time</mat-label>
+                    <input matInput type="text" name="station" formControlName="time"/>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Timezone</mat-label>
+                    <input matInput type="text" name="station" formControlName="timeZone"/>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Depth</mat-label>
+                    <input matInput type="text" name="station" formControlName="depth"/>
+                </mat-form-field>
+            </div>
+            <div class="column left-aligned">
+                <p>Parameters</p>
+                <mat-form-field>
+                    <mat-label>Secchi</mat-label>
+                    <input matInput type="text" name="station" formControlName="secchi"/>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Temp</mat-label>
+                    <input matInput type="text" name="station" formControlName="temp"/>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>PH</mat-label>
+                    <input matInput type="text" name="station" formControlName="ph"/>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Sp. Conductance</mat-label>
+                    <input matInput type="text" name="station" formControlName="spCond"/>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>DO Sat %</mat-label>
+                    <input matInput type="text" name="station" formControlName="doPercent"/>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>DO mg/L</mat-label>
+                    <input matInput type="text" name="station" formControlName="do"/>
+                </mat-form-field>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Review</ng-template>
+        <div class="row">
+            <button mat-button matStepperPrevious>Back</button>
+        </div>
+        <br>
+        <div class="column">
+            @if(importedSamples.length > 0) {
+                {{ importedSamples.length }} samples were read from the file.
+
+                @if(rowsMissingData.length > 0) {
+                    <br><br>
+                    {{ rowsMissingData.length }} error(s) were detected. Please see below for more detailed information.
+                    <br><br>
+                    <div class="column">
+                        @for(row of rowsMissingData;) {
+                            <p>Sample {{row.index + 1}} is missing data for column {{row.column}}</p>
+                        }
+                    </div>
+
+                }
+                @else {
+                    <br><br>
+                    No errors were detected!
+                }
+            }
+            @else {
+                No samples were found!
+            }
+        </div>
+        
+    </mat-step>
+</mat-stepper>

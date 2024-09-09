@@ -1,0 +1,6 @@
+@DO_POC.Server_HostAddress = http://localhost:5232
+
+GET {{DO_POC.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
