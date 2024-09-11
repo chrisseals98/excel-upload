@@ -32,57 +32,57 @@
                 <p>Spreadsheet Information</p>
                 <mat-form-field>
                     <mat-label>Rows to skip</mat-label>
-                    <input matInput type="text" name="station" formControlName="rowsToSkip"/>
+                    <input matInput type="text"  formControlName="rowsToSkip"/>
                 </mat-form-field>
             </div>
             <div class="column left-aligned">
                 <p>Identification Data</p>
                 <mat-form-field>
-                    <mat-label>Station ID</mat-label>
-                    <input matInput type="text" name="station" formControlName="stationId"/>
+                    <mat-label>Location ID</mat-label>
+                    <input matInput type="text"  formControlName="locId"/>
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>Date</mat-label>
-                    <input matInput type="text" name="station" formControlName="date"/>
+                    <input matInput type="text"  formControlName="date"/>
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>Time</mat-label>
-                    <input matInput type="text" name="station" formControlName="time"/>
+                    <input matInput type="text"  formControlName="time"/>
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>Timezone</mat-label>
-                    <input matInput type="text" name="station" formControlName="timeZone"/>
+                    <input matInput type="text"  formControlName="timeZone"/>
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>Depth</mat-label>
-                    <input matInput type="text" name="station" formControlName="depth"/>
+                    <input matInput type="text"  formControlName="depth"/>
                 </mat-form-field>
             </div>
             <div class="column left-aligned">
                 <p>Parameters</p>
                 <mat-form-field>
                     <mat-label>Secchi</mat-label>
-                    <input matInput type="text" name="station" formControlName="secchi"/>
+                    <input matInput type="text"  formControlName="secchi"/>
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>Temp</mat-label>
-                    <input matInput type="text" name="station" formControlName="temp"/>
+                    <input matInput type="text"  formControlName="temp"/>
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>PH</mat-label>
-                    <input matInput type="text" name="station" formControlName="ph"/>
+                    <input matInput type="text"  formControlName="ph"/>
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>Sp. Conductance</mat-label>
-                    <input matInput type="text" name="station" formControlName="spCond"/>
+                    <input matInput type="text"  formControlName="spCond"/>
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>DO Sat %</mat-label>
-                    <input matInput type="text" name="station" formControlName="doPercent"/>
+                    <input matInput type="text"  formControlName="doPercent"/>
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>DO mg/L</mat-label>
-                    <input matInput type="text" name="station" formControlName="do"/>
+                    <input matInput type="text"  formControlName="do"/>
                 </mat-form-field>
             </div>
         </form>
@@ -96,21 +96,23 @@
         <div class="column">
             @if(importedSamples.length > 0) {
                 {{ importedSamples.length }} samples were read from the file.
-
+                <button mat-button (click)="logData()">View in Console</button>
                 @if(rowsMissingData.length > 0) {
                     <br><br>
                     {{ rowsMissingData.length }} error(s) were detected. Please see below for more detailed information.
                     <br><br>
-                    <div class="column">
-                        @for(row of rowsMissingData;) {
-                            <p>Sample {{row.index + 1}} is missing data for column {{row.column}}</p>
+                    <ul class="column">
+                        @for(row of rowsMissingData; track $index) {
+                            <li>Sample <b>{{row.index + 1}}</b> is missing data for the column <b>{{row.column}}</b></li>
                         }
-                    </div>
+                    </ul>
 
                 }
                 @else {
                     <br><br>
                     No errors were detected!
+                    <br><br>
+                    <button mat-button (click)="upload()">Finish Upload</button>
                 }
             }
             @else {

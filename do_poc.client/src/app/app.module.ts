@@ -12,15 +12,18 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatTableModule } from '@angular/material/table';
 import { provideRouter, RouterOutlet, RouterLink } from '@angular/router';
 import { routes } from './app.routes';
 import { HomeComponent } from './home/home.component';
 import { SampleImportComponent } from './sample-import/sample-import.component';
+import { ReportComponent } from './report/report.component';
 
 @NgModule({ declarations: [
         AppComponent,
         HomeComponent,
-        SampleImportComponent
+        SampleImportComponent,
+        ReportComponent
     ],
     bootstrap: [AppComponent],
     imports: [
@@ -35,7 +38,8 @@ import { SampleImportComponent } from './sample-import/sample-import.component';
         RouterOutlet,
         RouterLink,
         MatToolbarModule,
-        MatCheckboxModule
+        MatCheckboxModule,
+        MatTableModule
     ],
     providers: [provideHttpClient(withInterceptorsFromDi()), provideAnimationsAsync(), provideRouter(routes)] })
 export class AppModule { }

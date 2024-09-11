@@ -41,12 +41,4 @@ export class AppComponent {
       document.getElementById("data")!.innerHTML = "";
     }
   }
-
-  test() {
-    console.log(this.isFileRead);
-    if(this.worksheet) {
-      const excelJSON = xlsx.utils.sheet_to_json(this.worksheet, {header: "A"})
-      console.log(excelJSON);
-    }
-  }
 }
